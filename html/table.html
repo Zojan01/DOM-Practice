@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../css/style.css">
+        
+    </head>
+    <body>
+
+        <div class="center">
+            <button id="btnNewRow" onclick="newRow()">New Row</button>
+            <button id="btnNewColumn" onclick="openModelBox()">New Column</button>
+            <button id="btnDeleteRow" onclick="deleteRow()">Delete</button>
+            
+            <table id="tbl">
+                
+            </table>
+     
+        </div>  
+
+        <div id="modalNewColumn">
+            <form class="formNewColumn">
+                <span class="close" onclick="closeModelBox()">&times;</span>  
+                <h3>New Column</h3>
+                <label for="inputHeader">Header</label>
+                <input type="text" id="inputHeader" placeholder="Inset the header of the column" name="txtHeader">
+                <p>Please select the kind of cell</p>
+                <input type="radio" id="checkString" name="typeCell" value="string"><label for="checkString">String</label>
+                
+                <input type="radio" id="checkNumber" name="typeCell" value="number"><label for="checkNumber">Number</label>
+                
+                <input type="radio" id="checkEmail" name="typeCell" value="email"><label for="checkEmail">Email</label>
+                
+                <input type="radio" if="checkUrl" name="typeCell" value="url" float="left"><label for="checkUrl">Url</label>
+                <br>
+                <input type="button" id="btnNewColumn" value="Craete new column" onclick="newColumn()">
+            </form>
+        </div>
+
+        <script src="../js/function.js"></script>
+    </body>
+
+</html>
+
+
+
