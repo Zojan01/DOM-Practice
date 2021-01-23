@@ -1,25 +1,32 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="../css/style.css">
+        <link  rel="stylesheet" href="../css/style.css">
         
     </head>
     <body>
 
-        <div class="center">
-            <button id="btnNewRow" onclick="newRow()">New Row</button>
-            <button id="btnNewColumn" onclick="openModelBox()">New Column</button>
-            <button id="btnDeleteRow" onclick="deleteRow()">Delete</button>
+        <div>
+
+            <div id="div-buttons">
+                <input type="text" id="inputSearch" placeholder="Search">
+                <button id="btnNewRow">New Row</button>
+                <button id="btnModalB">New Column</button>
+                <button id="btnDeleteRow" >Delete</button>
+            </div>
+            
             
             <table id="tbl">
-                
             </table>
-     
-        </div>  
+            <div class="pagination">
+               
+            </div> 
+        </div>
+         
 
         <div id="modalNewColumn">
             <form class="formNewColumn">
-                <span class="close" onclick="closeModelBox()">&times;</span>  
+                <span class="close" id="btnClose" >&times;</span>  
                 <h3>New Column</h3>
                 <label for="inputHeader">Header</label>
                 <input type="text" id="inputHeader" placeholder="Inset the header of the column" name="txtHeader">
@@ -36,7 +43,11 @@
             </form>
         </div>
 
-        <script src="../js/function.js"></script>
+        <div id="modalOptionCell"> 
+            <a href="#">Delete Row</a>
+        </div>
+
+        <script type="module" src="../js/main.js"></script>
     </body>
 
 </html>
