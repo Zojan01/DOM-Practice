@@ -3,7 +3,7 @@ import {eventCellType} from './EventCell.js'
 import {getJsonTable,setJsonTable} from './Storage.js';
 import {openModelBoxForOptions} from './ModelBox.js';
 
-const dragger = {   
+const propertiesTable = {   
     columDragNumber: null,
     columDropNumber: null,
     columnNumberSort: null,
@@ -36,7 +36,6 @@ function  newRow(table){
         
         }else if(count === headers.length - 1){
             let i = newOptionBtn();
-            console.log(newOptionBtn() )
             cell.appendChild( newOptionBtn() );
 
         }else{
@@ -51,7 +50,7 @@ function  newRow(table){
     buttonsPaginate(table);
     paginatedTable(table, 1);
     
-}
+};
 
 function  newColumn(table,name,type){  
 
@@ -87,7 +86,7 @@ function  newColumn(table,name,type){
 
     saveJsonTable(tableToJson(table));
     
-}
+};
 
 function firstColumnHeader(table){
     let row = table.children[0].children[0];
@@ -100,7 +99,7 @@ function firstColumnHeader(table){
     };
     cell.appendChild(checkBox);
     row.appendChild(cell);
-}
+};
 
 function lastColumnHeader(table){
     let row = table.children[0].children[0];
@@ -113,7 +112,7 @@ function lastColumnHeader(table){
 
     cell.appendChild(icon);
     row.appendChild(cell);
-}  
+}; 
 
 function newCheckBox(){
     let checkBox = document.createElement('input');
@@ -122,7 +121,7 @@ function newCheckBox(){
     checkBox.onchange = function(event){addToDeleteListRow(event.target);};
     checkBox.setAttribute('name','checkBox');
     return checkBox;
-}
+};
 
 function newOptionBtn(){
     let icon = document.createElement('img');
@@ -131,7 +130,7 @@ function newOptionBtn(){
     icon.width="25";  
     eventOption(icon)
     return icon;
-}  
+};
 
 function eventOption(btn){
     let modal = document.getElementById('modalOptionCell');
@@ -139,8 +138,6 @@ function eventOption(btn){
     btn.onclick = function(event){   
         let row = this.target = event.target.parentNode.parentNode; 
         openModelBoxForOptions(modal, event.clientX, event.clientY);
-
-        console.log(modal.children[0]); 
 
         modal.children[0].onclick = function(){ 
             deleteRow(row);     
@@ -152,7 +149,7 @@ function eventOption(btn){
     
     
     
-}
+};
 
 function someCheckBoxSelected(){
     let checkBoxSeleted =  document.querySelector('input[name = "checkBox"]:checked');
@@ -162,20 +159,25 @@ function someCheckBoxSelected(){
     }else{
         return true;
     }
-}
+};
 
 function pressAllCheckBox(element){
 
     let rows = element.parentNode.parentNode.parentNode.childNodes;
     let state;
-    let btnDelete = document.getElementById('btnDeleteRow');
-    
+    let btnDeleteRows = document.getElementById('btnDeleteRow');
+    let btnDeleteTAble = document.getElementById('btnDeleteTable');
+
+
     if(element.checked){
         state = true;
-        btnDelete.style.display = 'inline-block';
+        btnDeleteRows.style.display = 'inline-block';
+        btnDeleteTAble.style.display = 'inline-block';
     }else{
         state = false;
-        btnDelete.style.display = 'none';        
+        btnDeleteRows.style.display = 'none';
+        btnDeleteTAble.style.display = 'none';
+              
     }
 
     let count = 0;
@@ -193,22 +195,29 @@ function pressAllCheckBox(element){
         count++;  
 
     });
-}
+};
 
 function addToDeleteListRow(elemet){
 
-    let btnDelete = document.getElementById('btnDeleteRow');
+    let btnDeleteRows = document.getElementById('btnDeleteRow');
+    let btnDeleteTAble = document.getElementById('btnDeleteTable');
+    
+
     let rowSelected = elemet.parentNode.parentNode;
 
     if(elemet.checked){
-        btnDelete.style.display = 'inline-block';
+        btnDeleteRows.style.display = 'inline-block';
+        btnDeleteTAble.style.display = 'inline-block';
         deleteListRow.push(rowSelected);
     }else{
-        if(someCheckBoxSelected() == false){btnDelete.style.display = 'none'; };
+        if(someCheckBoxSelected() == false){
+            btnDeleteRows.style.display = 'none';
+        btnDeleteTAble.style.display = 'none';
+        };
 
         deleteListRow.filter( (row) => {return row !== rowSelected}); 
     }  
-}
+};
 
 
 function deleteRows(table){
@@ -219,19 +228,20 @@ function deleteRows(table){
     deleteListRow = [];
     checkBoxHeader.checked = false;
     saveJsonTable(tableToJson(table));
-    paginatedTable(table, dragger.actualPage);
+    paginatedTable(table, propertiesTable.actualPage);
     buttonsPaginate(table);
-}       
-function deleteRow(element){
-    let table = element.parentNode.parentNode;
-    element.parentNode.removeChild(element);
-    paginatedTable(table,dragger.actualPage);
+};    
+function deleteRow(row){
+    let table = row.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+    paginatedTable(table,propertiesTable.actualPage);
     buttonsPaginate(table);
-}
+};
 
-
-
-
+function deleteTable(table){
+    console.log(table);
+    table.removeChild(table.children[0]);
+};
 
 function adderEventCell(element){
 
@@ -255,20 +265,19 @@ function adderEventCell(element){
             saveJsonTable(tableToJson(table));
         };
     });    
-}
+};
 
 function  adderEventHeader(element){
     element.draggable="true";
     
     element.onclick = function(event){
         let table = event.target.parentNode.parentNode.parentNode;
-        console.log('asc ='+event.target.getAttribute('asc'));
         sortColumn(table,getColumnNumber(event.target.id),Number(event.target.getAttribute('asc')));
     };
 
     element.ondragstart = function(event){
         event.target.style.opacity = 0.5;   
-        dragger.columDragNumber = getColumnNumber(event.target.id);
+        propertiesTable.columDragNumber = getColumnNumber(event.target.id);
     };
 
     element.ondragover = function(event){
@@ -282,11 +291,11 @@ function  adderEventHeader(element){
     element.ondrop = function(event){
         let table = event.target.parentNode.parentNode.parentNode
         event.preventDefault();
-        dragger.columDropNumber =getColumnNumber(event.target.id);
+        propertiesTable.columDropNumber =getColumnNumber(event.target.id);
         moveColumn(table);
         saveJsonTable(tableToJson(table));   
     };            
-}
+};
 
 function adderEventRow(element){
     
@@ -300,7 +309,7 @@ function adderEventRow(element){
 
     element.ondragstart = function(event){
         event.target.style.opacity = 0.5;
-        dragger.rowDragTarget = event.target;      
+        propertiesTable.rowDragTarget = event.target;      
     };
 
     element.ondragover = function(event){
@@ -314,11 +323,11 @@ function adderEventRow(element){
     element.ondrop = function(event){
         let table = event.target.parentNode.parentNode.parentNode
         event.preventDefault(); 
-        dragger.rowDropTarget = event.target.parentNode;
+        propertiesTable.rowDropTarget = event.target.parentNode;
         moveRow(table);
         saveJsonTable(tableToJson(table));
     };            
-}
+};
 
 function editOnDoubleClick(element){
     element.contentEditable = true;
@@ -328,7 +337,7 @@ function editOnDoubleClick(element){
             let table = element.parentNode.parentNode.parentNode;
             saveJsonTable(tableToJson(table));
         }}, 300);
-}
+};
 
 
 function getColumnNumber(columIdDrag){ 
@@ -344,7 +353,7 @@ function getColumnNumber(columIdDrag){
 
     }
     return columnNumber;
-}
+};
 
 
 function moveColumn(table){
@@ -353,14 +362,14 @@ function moveColumn(table){
     
 
     allRows.forEach(element => {
-        element.insertBefore(element.children[dragger.columDragNumber], element.children[dragger.columDropNumber]);
+        element.insertBefore(element.children[propertiesTable.columDragNumber], element.children[propertiesTable.columDropNumber]);
     });
-}
+};
 
 function moveRow(table){
     
-    table.children[0].insertBefore(dragger.rowDragTarget , dragger.rowDropTarget);
-}
+    table.children[0].insertBefore(propertiesTable.rowDragTarget , propertiesTable.rowDropTarget);
+};
 
 
 function sortColumn(table, positionColum, isAsc){
@@ -455,7 +464,7 @@ function tableToJson(table){
         
     }
     return tableJson;
-}
+};
 
 function jsonToTable(table, jsonTable){
     let rowHeader = table.insertRow();
@@ -506,12 +515,12 @@ function jsonToTable(table, jsonTable){
 
     
 
-}
+};
 
 function saveJsonTable(json){      
     json = JSON.stringify(json);    
     setJsonTable(json);
-}
+};
 
 
 function filter(table,inputText){
@@ -539,62 +548,72 @@ function filter(table,inputText){
     }
 
     if(inputText.length === 1){
-        
-      paginatedTable(table,1);
+        let tableJson = JSON.parse( getJsonTable() );
+        deleteTable(table);
+        jsonToTable(table,tableJson);
+        paginatedTable(table,1);
+        buttonsPaginate(table);
       
     }
-}
+};
 
 
 function buttonsPaginate(table){
 
     let rowsCount  = table.children[0].childNodes.length;
-    let buttonsPaginateCount = Math.ceil((rowsCount) / 10);
+    let buttonsToPaginateCount = Math.ceil((rowsCount) / 10);
 
-    console.log(buttonsPaginateCount);
-
-    let divPaginated = document.querySelector('.pagination');
+    let divPaginated = document.getElementById('div-pagination');
     let btnNext = document.createElement('a');
     let btnPrevius = document.createElement('a');
 
+    while (divPaginated.firstChild){  divPaginated.removeChild(divPaginated.firstChild)  };
 
-    while (divPaginated.firstChild){
-        divPaginated.removeChild(divPaginated.firstChild);
-    }
     btnNext.href= '#';
     btnPrevius.href= '#';
     btnNext.innerHTML = 'Next';
     btnPrevius.innerHTML = 'Previus';
 
-    btnNext.onclick = function(){ (dragger.actualPage + 1 > buttonsPaginateCount )? alert('there are no more Next pages'):
-                                    paginatedTable(table, dragger.actualPage +1)}
+    btnNext.onclick = function(event){ 
+        if(propertiesTable.actualPage + 1 > buttonsToPaginateCount ){ alert('there are no more Next pages') }
+        else{ 
+            paginatedTable(table, propertiesTable.actualPage + 1); 
+            event.target.parentNode.childNodes[propertiesTable.actualPage].click();
+        }
+    };
 
-    btnPrevius.onclick = function(){ (dragger.actualPage -1 < 1)? alert('there are no more Previus page') :
-                                        paginatedTable(table, dragger.actualPage -1 ) }
+    btnPrevius.onclick = function(event){
+         if(propertiesTable.actualPage -1 < 1){   alert('there are no more Previus page') } 
+         else{
+            paginatedTable(table, propertiesTable.actualPage - 1 );
+            event.target.parentNode.childNodes[propertiesTable.actualPage].click();
+         }
+    };
 
     divPaginated.appendChild(btnNext);
     divPaginated.appendChild(btnPrevius);
-    
 
-    for(let s = 0; s < buttonsPaginateCount; s++){
+    for(let s = 0; s < buttonsToPaginateCount; s++){
         let btn = document.createElement('a');
         btn.innerHTML = s+1;
         btn.href= '#';
         btn.onclick  = function(event){
-            paginatedTable(table, event.target.innerHTML);
+            let actualButton = document.querySelector('.active');
+            if(actualButton){actualButton.setAttribute('class','inactive')};
+
+            paginatedTable(table, event.target.innerHTML);  
+            event.target.setAttribute('class','active');
         }
         divPaginated.insertBefore(btn, divPaginated.lastElementChild);
     }
     document.body.appendChild(divPaginated);
-}
+};
 
 function paginatedTable(table, page){
     
-    dragger.actualPage = Number(page);
+    propertiesTable.actualPage = Number(page);
     let rows = table.children[0].childNodes;
     let numberRowForPage = 10;  
-    
-    console.log(page);
 
     try{
     rowsShowed.map(row =>  row.style.display = 'none');
@@ -608,7 +627,7 @@ function paginatedTable(table, page){
             rowsShowed.push(rows[s]);
         }   
     }      
-}
+};
 
 
 
@@ -616,5 +635,4 @@ function paginatedTable(table, page){
 
 
 
-export {adderEventCell, adderEventHeader, adderEventRow, jsonToTable , deleteRows, newRow, newColumn,
-        tableToJson,firstColumnHeader, lastColumnHeader, newCheckBox, paginatedTable, buttonsPaginate,filter}
+export {jsonToTable, paginatedTable, buttonsPaginate,deleteRows,deleteTable,newRow,newColumn,filter};

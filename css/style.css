@@ -1,123 +1,173 @@
 body{
     margin: auto 150px;
-    width: 1000px;
     background-color: #ffff;
     padding: 20px 20px 20px 20px;
-    border: 5px solid blue;
 }
 
-.center{
+h1{
   text-align: center;
+}
+
+#div-table{
+  
+  overflow:auto;
+  height: 380px;
+
 }
 
 #tbl{
-    border: 1px solid greenyellow ;
     table-layout: fixed;
-    width: 500px;
     text-align: center;
-}
-
-th, td {
-    border: 1px solid blue;
-    width: 100px;
-    height: 25px;
-    word-wrap: break-word;
-}
-   
-table, tr, th, td {
+    width: 800px;
     border: 1px solid black;
     border-collapse: collapse;
-  }
-
-#modalNewColumn{
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    text-align: center;     
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width:  100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    
 }
-
-#modalOptionCell{
-  display: none;
-  position: fixed;
-  text-align: center;
-  font-size: large;
-  padding: auto;
-  padding-top: 10px;
-  left: 0;
-  top: 0;
-  width:  auto; /* Full width */
-  height: 30px; /* Full height */
-  color: red;
-  background-color: white; /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-#modalOptionCell a{
-  color: black;
-  
-  text-decoration: none;
+tr {
+  font-size: 16px;
+  color:black;
+  background-color: #95a5a6;
+  text-align: center;    
 } 
 
-#modalOptionCell a:hover{
-  background-color: greenyellow;
+tr:nth-child(2n+1) {
+  font-size: 16px;
+  color:black;
+  background-color: #2ecc71;
 }
 
-#btnDeleteRow{
-  display: none;
+   
+th,td {
+  width: 100px;
+  height: 25px;
+  word-wrap: break-word;
+  border-color: black;
+  border: 1px solid black;
+  border-collapse: collapse;
 }
 
-#div-buttons{
-  margin  : 5px;
-  margin-left: 0;
-  background-color: white ;
+
+th{ 
+  font-size: 20px;
+  word-wrap: break-word;
+  background-color: rgb(63, 183, 243);
+  color:white;
+}
+
+
+button{
+  text-decoration: none;
+  padding: 5px;
+  font-weight: 600;
+  font-size: 15px;
+  color: #ffffff;
+  background-color: #1883ba;
+  border-radius: 6px;
+  border: 2px solid #0016b0;
+}
+button:hover{
+  color: #28ba18;
+  background-color: #ffffff;
+}
+
+input[type=text] {
+  font-size: large;
+  width: 20%;
+  height: 25px;  
+  border-radius: 7px;
 }
 
 .formNewColumn{
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid black;
-    width: 80%; /* Could be more or less, depending on screen size */
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid black;
+  width: 80%; /* Could be more or less, depending on screen size */
 } 
 
 .close{
-    color: #aaa;
-    float: right;
-    font-size: 35px;
-    font-weight: bold;
+  color: #aaa;
+  float: right;
+  font-size: 35px;
+  font-weight: bold;
 }
 
 .close:hover, .close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
+color: black;
+text-decoration: none;
+cursor: pointer;
 }
 
 
-.pagination {
-    display: inline-block;
-    width: auto;
-    text-align: center;
-  }
-  
-.pagination a {
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
+#div-pagination {
+  display: inline-block;
+  text-align: center;
+  width: auto;
+  margin: 5px;
+  border: 2px solid blue;
+  border-radius: 3px;
 }
-.pagination a:hover:not(.active) {background-color: #ddd;}
 
-.pagination a.active {
-  background-color: #4CAF50;
-  color: white;
+#div-pagination a {
+color: black;
+float: left;
+padding: 8px 16px;
+text-decoration: none;
 }
-  
- 
+#div-pagination a:hover:not(.active) {background-color: rgb(141, 211, 144);}
+
+#div-pagination a.active {
+background-color: #1883ba;
+color: white;
+}
+
+
+#modalNewColumn{
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  text-align: center;     
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width:  100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+#modalOptionCell{
+display: none;
+position: fixed;
+text-align: center;
+font-size: large;
+padding: auto;
+padding-top: 10px;
+left: 0;
+top: 0;
+width:  auto; /* Full width */
+height: 30px; /* Full height */
+color: red;
+background-color: white; /* Fallback color */
+background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+#modalOptionCell a{
+color: black;
+
+text-decoration: none;
+} 
+
+#modalOptionCell a:hover{
+background-color: greenyellow;
+}
+
+#btnDeleteRow , #btnDeleteTable{
+display: none;
+}
+
+#div-buttons{
+margin  : 5px;
+margin-left: 0;
+background-color: white ;
+}

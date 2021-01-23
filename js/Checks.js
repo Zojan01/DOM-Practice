@@ -17,7 +17,7 @@ function checkCellNumber(element){
     let number = Number(element.innerText);
 
     if(isNaN(number) != false){
-        window.alert('Cell of type number, please enter a data of type number');
+        window.alert('Cell of type number, please enter a data of type number e.g. 23432');
         element.innerHTML = '';
     }
 };
@@ -28,7 +28,7 @@ function checkCellEmail(element){
     let email = String(element.innerText).trim();
 
     if(regularExp.test(email) != true){
-        window.alert('Cell of type email, please enter a data of type email');
+        window.alert('Cell of type email, please enter a data of type email e.g. 123@hotmail.com ');
         element.innerHTML = '';
     }
 
@@ -39,7 +39,7 @@ function checkCellUrl(element){
     let  url = element.innerText.trim();
 
     if(regularExp.test(url) != true){
-        window.alert('Cell of type url, please enter a data of type url with http://');
+        window.alert('Cell of type url, please enter a data of type url e.g. http://google.com');
         element.innerHTML = '';
     }
 };

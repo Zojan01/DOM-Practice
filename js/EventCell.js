@@ -29,8 +29,4 @@ function eventCellUrl(element){
 }
 
 
-
-
-
-
 export {eventCellType};
