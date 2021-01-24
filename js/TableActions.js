@@ -123,7 +123,7 @@ function newCheckBox(){
     return checkBox;
 };
 
-function newOptionBtn(){
+function newOptionBtn(){    
     let icon = document.createElement('img');
     icon.src="../download.png";
     icon.width="25"; 
@@ -139,16 +139,23 @@ function eventOption(btn){
         let row = this.target = event.target.parentNode.parentNode; 
         openModelBoxForOptions(modal, event.clientX, event.clientY);
 
-        modal.children[0].onclick = function(){ 
+        modal.children[0].onclick = function(){
             deleteRow(row);     
-            modal.style = 'none';
-            
+            modal.style.display = 'none';
         };
 
-    }
-    
-    
-    
+        setTimeout(()=>{
+
+            window.addEventListener('click',function optionClickOut(event){
+                    console.log('prog')
+                     modal.style.display = "none";
+                    window.removeEventListener('click',optionClickOut);            
+            })}         
+
+        ,5);
+
+      
+    } 
 };
 
 function someCheckBoxSelected(){
@@ -239,7 +246,6 @@ function deleteRow(row){
 };
 
 function deleteTable(table){
-    console.log(table);
     table.removeChild(table.children[0]);
 };
 
@@ -533,7 +539,7 @@ function filter(table,inputText){
 
             let includeValue = false;
             for(let s = 0; s < row.childNodes.length; s++){
-                
+                        
                 let cell =  row.children[s].innerText; 
                 if(cell.toLowerCase().includes(inputText)){
                     includeValue = true;
