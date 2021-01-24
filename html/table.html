@@ -1,0 +1,58 @@
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <link  rel="stylesheet" href="../css/style.css">
+            
+        </head>
+        <body>
+            <h1>DOM-PRACTICE</h1>
+            <div>
+                <div id="div-buttons">
+                    <input type="text" id="inputSearch" placeholder="Search">
+                    <button id="btnNewRow">New Row</button>
+                    <button id="btnModalB">New Column</button>
+                    <button id="btnDeleteRow" >Delete Rows</button>
+                    <button id="btnDeleteTable">Delete Table</button>
+                </div>
+
+                <div id=div-table>
+                    <table id="tbl">
+                    </table>
+                </div> 
+
+            </div>
+            <div id="div-pagination">
+                
+            </div> 
+
+
+            <div id="modalNewColumn">
+                <div class="formNewColumn">
+                    <span class="close" id="btnClose" >&times;</span>  
+                    <h3>New Column</h3>
+                    <input type="text" id="inputHeader" placeholder="Inset the header of the column" >
+                    <p>Please select the kind of cell</p>
+                    <input type="radio" id="checkString" name="typeCell" value="string"><label for="checkString">String</label>
+                    
+                    <input type="radio" id="checkNumber" name="typeCell" value="number"><label for="checkNumber">Number</label>
+                    
+                    <input type="radio" id="checkEmail" name="typeCell" value="email"><label for="checkEmail">Email</label>
+                    
+                    <input type="radio" if="checkUrl" name="typeCell" value="url" float="left"><label for="checkUrl">Url</label>
+                    <br>
+                    <br>
+                    <button id="btnNewColumn">Create new Column</button>
+                </div>
+            </div>
+
+            <div id="modalOptionCell"> 
+                <a href="#">Delete Row</a>
+            </div>            
+
+            <script type="module" src="../js/main.js"></script>
+        </body>
+
+    </html>
+
+
+
